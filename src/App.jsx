@@ -1,10 +1,13 @@
-import logo from './logo.svg';
 import './App.css';
 import { Navbar } from './components/Navbar';
 import { Men } from './components/Mens';
 import { Link, Route, Routes } from 'react-router-dom';
 import { Women } from './components/Women';
 import { Footer } from './components/Footer';
+import {PrivateRoute} from './components/PrivateRouter'
+import {Login} from "./components/Login"
+import { About } from './components/About';
+ import { UserDetails} from "./components/UserDetails"
 
 function App() {
   return (
@@ -18,8 +21,30 @@ function App() {
 
 
           <Routes>
-            <Route path="/Men" element={<Men/>}></Route>
-            <Route path="/women" element={<Women/>}></Route>
+          <Route path ="/Men/:id" element = {
+             <PrivateRoute>
+             <UserDetails/>
+            </PrivateRoute>
+            }>
+              
+            </Route>
+
+
+
+            <Route path="/Men" element={
+
+           <PrivateRoute>
+            <Men/>
+            </PrivateRoute>
+
+            }>
+            </Route>
+
+            <Route path="/women" element={  <PrivateRoute><Women/></PrivateRoute>}></Route>
+            <Route path="/login" element={<Login/>}></Route>
+            <Route path="/about" element={ <PrivateRoute>   <About/>  </PrivateRoute> }></Route>
+
+            
           </Routes>
    
     </div>
